@@ -5,7 +5,6 @@
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -15,6 +14,16 @@
     <p>
         @Html.ActionLink("Criar Aluno", "Create")
     </p>
+    <p>
+        @using (Html.BeginForm("Procurar", "Home", FormMethod.Get))
+        {
+            @Html.RadioButton("procurarPor", "Nome", true) <span>Nome</span>
+            @Html.RadioButton("procurarPor", "Email") <span>Email</span><br/>
+            @Html.TextBox("criterio") <input type="submit" value="Procurar" />
+        }
+
+    </p>
+
     <table class="table">
         <tr>
             <th>
@@ -36,28 +45,34 @@
         </tr>
     
     @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Idade)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataInscricao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sexo)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Detalhes", "Details", new { id=item.Id }) |
-                @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
-            </td>
-        </tr>
+        using (@Html.BeginForm("Delete", "Home", new { id = @item.Id }))
+        { 
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Idade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataInscricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sexo)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
+                    @*@Html.ActionLink("Excluir", "Delete", new { id=item.Id })*@
+                                        
+                    <input type="submit"  value="Deletar" onclick='return confirm("Deseja realmente excluir o usuario id =  @item.Id");' />
+                
+                </td>
+            </tr>
+        }
     }
     
     </table>

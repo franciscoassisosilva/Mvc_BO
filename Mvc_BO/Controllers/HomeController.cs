@@ -154,6 +154,7 @@ namespace Mvc_BO.Controllers
             return View();
         }
 
+        /*
         public ActionResult Delete(int id)
         {
             Aluno aluno = _alunoBLL.GetAlunoPorId(id);
@@ -165,6 +166,35 @@ namespace Mvc_BO.Controllers
         {
             _alunoBLL.DeletarAluno(id);
             return RedirectToAction("Index");
+        }*/
+
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            _alunoBLL.DeletarAluno(id);
+            return RedirectToAction("Index");
+        }
+    
+        
+        public ActionResult Details(int id)
+        {
+            Aluno aluno = _alunoBLL.GetAlunoPorId(id);
+            return View(aluno);
+        }
+
+        public ActionResult Procurar(string procurarPor, string criterio)
+        {
+            Aluno aluno = null;
+            if (procurarPor.Equals("Nome"))
+            {
+                aluno = _alunoBLL.GetAlunos().SingleOrDefault(x => x.Nome.Equals(criterio) || criterio == null);
+            }
+            else
+            {
+                aluno = _alunoBLL.GetAlunos().SingleOrDefault(x => x.Email.Equals(criterio) || criterio == null);
+            }
+
+            return View(aluno);
         }
 
     }
