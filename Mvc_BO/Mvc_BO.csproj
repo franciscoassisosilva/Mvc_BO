@@ -77,6 +77,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Foto\dylan.jpg" />
+    <Content Include="Foto\gregg.jpg" />
+    <Content Include="Foto\janis.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>

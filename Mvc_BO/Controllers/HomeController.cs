@@ -143,7 +143,9 @@ namespace Mvc_BO.Controllers
         public ActionResult EditAluno([Bind(Exclude = "Nome")]int id)
         {
             Aluno aluno = _alunoBLL.GetAlunoPorId(id);
+            TryUpdateModel(aluno);
             aluno.Nome = _alunoBLL.GetAlunoPorId(aluno.Id).Nome;
+            
 
             if (ModelState.IsValid)
             {
