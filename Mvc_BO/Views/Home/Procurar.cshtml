@@ -56,7 +56,17 @@
             <dd>
                 @Html.DisplayFor(model => model.Sexo)
             </dd>
-    
+            
+            @if (string.IsNullOrEmpty(@Model.Foto))
+            {
+                <dt>
+                    Foto
+                </dt>
+                <dd>
+                    <img src="@Url.Content(Model.Foto)" alt="@Model.Texto" />
+                    @Html.DisplayFor(model => model.Texto)
+                </dd>
+            }
         </dl>
         }
         else

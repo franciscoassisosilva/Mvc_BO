@@ -35,7 +35,9 @@ namespace BLL
                             Email = reader["Email"].ToString(),
                             Idade = Convert.ToInt32(reader["Idade"]),
                             DataInscricao = Convert.ToDateTime(reader["DataInscricao"]),
-                            Sexo = reader["Sexo"].ToString()
+                            Sexo = reader["Sexo"].ToString(),
+                            Foto = reader["Foto"].ToString(),
+                            Texto = reader["Texto"].ToString()
                         };
 
                         lista.Add(aluno);
@@ -75,7 +77,9 @@ namespace BLL
                             Email = reader["Email"].ToString(),
                             Idade = Convert.ToInt32(reader["Idade"]),
                             DataInscricao = Convert.ToDateTime(reader["DataInscricao"]),
-                            Sexo = reader["Sexo"].ToString()
+                            Sexo = reader["Sexo"].ToString(),
+                            Foto =  reader["Foto"].ToString(),
+                            Texto = reader["Texto"].ToString()
                         };
                     }
                 }
@@ -118,6 +122,8 @@ namespace BLL
                     cmd.Parameters.Add(paramDataInscricao);
 
                     cmd.Parameters.Add("@Sexo", SqlDbType.Char).Value = aluno.Sexo;
+                    cmd.Parameters.Add("@Foto", SqlDbType.VarChar).Value = aluno.Foto;
+                    cmd.Parameters.Add("@Texto", SqlDbType.VarChar).Value = aluno.Texto;
 
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -144,6 +150,8 @@ namespace BLL
                     cmd.Parameters.Add("@Idade", SqlDbType.Int).Value = aluno.Idade;
                     cmd.Parameters.Add("@DataInscricao", SqlDbType.DateTime).Value = aluno.DataInscricao;
                     cmd.Parameters.Add("@Sexo", SqlDbType.Char).Value = aluno.Sexo;
+                    cmd.Parameters.Add("@Foto", SqlDbType.VarChar).Value = aluno.Foto;
+                    cmd.Parameters.Add("@Texto", SqlDbType.VarChar).Value = aluno.Texto;
 
                     conn.Open();
                     cmd.ExecuteNonQuery();
