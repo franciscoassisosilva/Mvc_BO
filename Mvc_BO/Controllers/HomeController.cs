@@ -154,5 +154,18 @@ namespace Mvc_BO.Controllers
             return View();
         }
 
+        public ActionResult Delete(int id)
+        {
+            Aluno aluno = _alunoBLL.GetAlunoPorId(id);
+            return View(aluno);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteAluno(int id)
+        {
+            _alunoBLL.DeletarAluno(id);
+            return RedirectToAction("Index");
+        }
+
     }
 }
