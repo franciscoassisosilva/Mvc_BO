@@ -16,30 +16,39 @@ namespace BLL
         {
             IList<Aluno> lista = new List<Aluno>();
 
-            using (SqlConnection conn = new SqlConnection(_strConexao))
+            try
             {
-                SqlCommand cmd = new SqlCommand("GET_ALUNOS", conn);
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                conn.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (SqlConnection conn = new SqlConnection(_strConexao))
                 {
-                    Aluno aluno = new Aluno()
-                    {
-                        Id = Convert.ToInt32(reader["Id"]),
-                        Nome = reader["Nome"].ToString(),
-                        Email = reader["Email"].ToString(),
-                        Idade = Convert.ToInt32(reader["Idade"]),
-                        DataInscricao = Convert.ToDateTime(reader["DataInscricao"]),
-                        Sexo = reader["Sexo"].ToString()
-                    };
+                    SqlCommand cmd = new SqlCommand("GET_ALUNOS", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    conn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
 
-                    lista.Add(aluno);
+                    while (reader.Read())
+                    {
+                        Aluno aluno = new Aluno()
+                        {
+                            Id = Convert.ToInt32(reader["Id"]),
+                            Nome = reader["Nome"].ToString(),
+                            Email = reader["Email"].ToString(),
+                            Idade = Convert.ToInt32(reader["Idade"]),
+                            DataInscricao = Convert.ToDateTime(reader["DataInscricao"]),
+                            Sexo = reader["Sexo"].ToString()
+                        };
+
+                        lista.Add(aluno);
+                    }
                 }
+            }
+            catch
+            {                
+                throw;
             }
             
             return lista;
         }
+    
+        
     }
 }

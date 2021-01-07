@@ -1,4 +1,6 @@
 packages/
+BLL/bin/
+BLL/obj/
 Mvc_BO/bin/
 Mvc_BO/obj/
 Mvc_BO/Web.Debug.config
