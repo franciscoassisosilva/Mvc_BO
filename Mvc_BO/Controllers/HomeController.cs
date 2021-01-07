@@ -88,6 +88,71 @@ namespace Mvc_BO.Controllers
 
             return View();
         }
-                
+
+        public ActionResult Edit(int id)
+        {
+            Aluno aluno = _alunoBLL.GetAlunoPorId(id);
+            return View(aluno);
+        }
+
+        /*[HttpPost]
+        public ActionResult Edit(Aluno aluno)
+        {
+            if (ModelState.IsValid)
+            {
+                _alunoBLL.AlteararAluno(aluno);
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }*/
+
+        /*
+        [HttpPost, ActionName("Edit")]
+        public ActionResult EditAluno(int id)
+        {
+            Aluno aluno = _alunoBLL.GetAlunoPorId(id);
+            //UpdateModel(aluno, includeProperties: new[] { "Id", "Email", "Idade", "DataInscricao", "Sexo" });
+            UpdateModel(aluno, null, null, excludeProperties: new[] { "Nome" });
+
+            if (ModelState.IsValid)
+            {
+                _alunoBLL.AlteararAluno(aluno);
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }*/
+
+        /*[HttpPost, ActionName("Edit")]
+        public ActionResult EditAluno([Bind(Include = "Id,Email,Idade,DataInscricao,Sexo")]int id)
+        {
+            Aluno aluno = _alunoBLL.GetAlunoPorId(id);
+            aluno.Nome = _alunoBLL.GetAlunoPorId(aluno.Id).Nome;
+
+            if (ModelState.IsValid)
+            {
+                _alunoBLL.AlteararAluno(aluno);
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }*/
+
+        [HttpPost, ActionName("Edit")]
+        public ActionResult EditAluno([Bind(Exclude = "Nome")]int id)
+        {
+            Aluno aluno = _alunoBLL.GetAlunoPorId(id);
+            aluno.Nome = _alunoBLL.GetAlunoPorId(aluno.Id).Nome;
+
+            if (ModelState.IsValid)
+            {
+                _alunoBLL.AlteararAluno(aluno);
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
+
     }
 }

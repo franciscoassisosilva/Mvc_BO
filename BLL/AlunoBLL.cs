@@ -50,6 +50,44 @@ namespace BLL
             return lista;
         }
 
+        public Aluno GetAlunoPorId(int id)
+        {
+            Aluno aluno = new Aluno();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_strConexao))
+                {
+                    SqlCommand cmd = new SqlCommand("GET_ALUNO_POR_ID", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+
+                    conn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        reader.Read();
+                        aluno = new Aluno()
+                        {
+                            Id = Convert.ToInt32(reader["Id"]),
+                            Nome = reader["Nome"].ToString(),
+                            Email = reader["Email"].ToString(),
+                            Idade = Convert.ToInt32(reader["Idade"]),
+                            DataInscricao = Convert.ToDateTime(reader["DataInscricao"]),
+                            Sexo = reader["Sexo"].ToString()
+                        };
+                    }
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return aluno;
+        }
+
         public void InserirAluno(Aluno aluno)
         {
             try
@@ -90,7 +128,31 @@ namespace BLL
                 throw;
             }
         }
-    
-        
+
+        public void AlteararAluno(Aluno aluno)
+        {
+            try
+            {
+                using(SqlConnection conn = new SqlConnection(_strConexao)) 
+                {
+                    SqlCommand cmd = new SqlCommand("ALTERAR_ALUNO", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@Id", SqlDbType.Int).Value = aluno.Id;
+                    cmd.Parameters.Add("@Nome", SqlDbType.VarChar).Value = aluno.Nome;
+                    cmd.Parameters.Add("@Email", SqlDbType.VarChar).Value = aluno.Email;
+                    cmd.Parameters.Add("@Idade", SqlDbType.Int).Value = aluno.Idade;
+                    cmd.Parameters.Add("@DataInscricao", SqlDbType.DateTime).Value = aluno.DataInscricao;
+                    cmd.Parameters.Add("@Sexo", SqlDbType.Char).Value = aluno.Sexo;
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }
