@@ -13,7 +13,7 @@ namespace BLL
     {
         private static string _strConexao = ConfigurationManager.ConnectionStrings["conSQLServer"].ConnectionString;
 
-        public IList<Aluno> getAlunos()
+        public IList<Aluno> GetAlunos()
         {
             IList<Aluno> lista = new List<Aluno>();
 
@@ -50,6 +50,47 @@ namespace BLL
             return lista;
         }
 
+        public void InserirAluno(Aluno aluno)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_strConexao))
+                {
+                    SqlCommand cmd = new SqlCommand("INCLUIR_ALUNO", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
 
+                    SqlParameter paramNome = new SqlParameter();
+                    paramNome.ParameterName = "@Nome";                    
+                    paramNome.Value = aluno.Nome;
+                    cmd.Parameters.Add(paramNome);
+
+                    SqlParameter paramEmail = new SqlParameter();
+                    paramEmail.ParameterName = "@Email";
+                    paramEmail.Value = aluno.Email;
+                    cmd.Parameters.Add(paramEmail);
+
+                    SqlParameter paramIdade = new SqlParameter();
+                    paramIdade.ParameterName = "@Idade";
+                    paramIdade.Value = aluno.Idade;
+                    cmd.Parameters.Add(paramIdade);
+
+                    SqlParameter paramDataInscricao = new SqlParameter();
+                    paramDataInscricao.ParameterName = "@DataInscricao";
+                    paramDataInscricao.Value = aluno.DataInscricao;
+                    cmd.Parameters.Add(paramDataInscricao);
+
+                    cmd.Parameters.Add("@Sexo", SqlDbType.Char).Value = aluno.Sexo;
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+    
+        
     }
 }

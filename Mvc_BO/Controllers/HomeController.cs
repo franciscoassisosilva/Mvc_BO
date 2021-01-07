@@ -18,8 +18,76 @@ namespace Mvc_BO.Controllers
         
         public ActionResult Index()
         {
-            IList<Aluno> lista = _alunoBLL.getAlunos();
+            IList<Aluno> lista = _alunoBLL.GetAlunos();
             return View(lista);
         }
-	}
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        /*
+        [HttpPost]
+        public ActionResult Create(FormCollection formulario)
+        {
+            Aluno aluno = new Aluno();
+            aluno.Nome = formulario["Nome"];
+            aluno.Email = formulario["Email"];
+            aluno.Idade = Convert.ToInt32(formulario["Idade"]);
+            aluno.DataInscricao = Convert.ToDateTime(formulario["DataInscricao"]);
+            aluno.Sexo = formulario["Sexo"];
+
+            _alunoBLL.InserirAluno(aluno);
+            return RedirectToAction("Index");
+        }*/
+        
+        /*
+        [HttpPost]
+        [ActionName("Create")]
+        public ActionResult CreateAluno()
+        {
+            Aluno aluno = new Aluno();
+            UpdateModel(aluno); // Lança uma exceção quando não preenchido os valores
+          
+            if (ModelState.IsValid)
+            {                
+                _alunoBLL.InserirAluno(aluno);
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
+        */
+        /*
+        [HttpPost]
+        [ActionName("Create")]
+        public ActionResult CreateAluno()
+        {
+            Aluno aluno = new Aluno();
+            TryUpdateModel(aluno);
+
+            if (ModelState.IsValid)
+            {                
+                _alunoBLL.InserirAluno(aluno);
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }*/
+
+        [HttpPost]
+        [ActionName("Create")]
+        public ActionResult CreateAluno(Aluno aluno)
+        {
+            if (ModelState.IsValid)
+            {
+                _alunoBLL.InserirAluno(aluno);
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
+                
+    }
 }
