@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace BLL
 {
@@ -19,9 +20,9 @@ namespace BLL
             try
             {
                 using (SqlConnection conn = new SqlConnection(_strConexao))
-                {
+                {                    
                     SqlCommand cmd = new SqlCommand("GET_ALUNOS", conn);
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.CommandType = CommandType.StoredProcedure;
                     conn.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -48,7 +49,7 @@ namespace BLL
             
             return lista;
         }
-    
-        
+
+
     }
 }
