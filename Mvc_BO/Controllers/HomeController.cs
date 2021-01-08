@@ -22,6 +22,12 @@ namespace Mvc_BO.Controllers
             return View(lista);
         }
 
+        public ActionResult ListaAlunos()
+        {
+            IList<Aluno> lista = _alunoBLL.GetAlunos();
+            return View(lista);
+        }
+
         public ActionResult Create()
         {
             return View();

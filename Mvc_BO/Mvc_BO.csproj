@@ -80,6 +80,7 @@
     <Content Include="Foto\dylan.jpg" />
     <Content Include="Foto\gregg.jpg" />
     <Content Include="Foto\janis.jpg" />
+    <Content Include="Foto\usuario.png" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -100,6 +101,8 @@
     <Content Include="Views\Home\Delete.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
     <Content Include="Views\Home\Procurar.cshtml" />
+    <Content Include="Views\Home\ListaAlunos.cshtml" />
+    <Content Include="Views\Shared\_Alunos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

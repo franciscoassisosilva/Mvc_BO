@@ -1,0 +1,8 @@
+﻿@model IEnumerable<BLL.Aluno>
+
+@Html.ActionLink("Voltar", "Index")
+
+@foreach (var item in Model)
+{
+   @Html.Partial("_Alunos", item)
+}
